@@ -9,10 +9,10 @@ return [
     'base_url'   => '',
 
     // Database (default XAMPP)
-    'db_host'    => 'localhost',
-    'db_user'    => 'root',
-    'db_pass'    => '',
-    'db_name'    => 'multi_travel',
+    'db_host'    => '163.223.227.38',
+    'db_user'    => 'dewujosf_travel',
+    'db_pass'    => 'Lamongan@123',
+    'db_name'    => 'dewujosf_travel',
 
     // WAJIB diganti: string acak >= 32 karakter (dipakai untuk HMAC OTP)
     'encryption_key' => 'GANTI-DENGAN-STRING-ACAK-MINIMAL-32-KARAKTER-1234567890',
