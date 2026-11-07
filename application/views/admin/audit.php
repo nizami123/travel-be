@@ -1,0 +1,2 @@
+<div class="card p-3"><table class="table table-sm dt"><thead><tr><th>Waktu</th><th>User</th><th>Aksi</th><th>Entitas</th><th>IP</th><th>Perubahan</th></tr></thead><tbody>
+<?php foreach ($rows as $r): ?><tr><td><?= fdt($r->created_at) ?></td><td><?= e($r->full_name ?: '-') ?></td><td><code><?= e($r->action) ?></code></td><td><?= e($r->entity_type) ?> #<?= e($r->entity_id) ?></td><td><?= e($r->ip_address) ?></td><td class="small text-muted"><?= e(mb_strimwidth((string)$r->new_values, 0, 80, '…')) ?></td></tr><?php endforeach; ?></tbody></table></div>

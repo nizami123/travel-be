@@ -1,0 +1,13 @@
+Options -Indexes
+RewriteEngine On
+
+# Teruskan header Authorization (Bearer token) ke PHP
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%1]
+
+# Blokir akses langsung ke kode
+RewriteRule ^(application|system)(/|$) - [F,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]

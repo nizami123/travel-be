@@ -1,0 +1,19 @@
+<?php $g = function ($k, $d = '') use ($row) { return $row && isset($row->$k) ? $row->$k : $d; }; ?>
+<div class="card p-4" style="max-width:850px"><form method="post" action="<?= site_url($base . '/save' . ($row ? '/' . $row->id : '')) ?>"><?= csrf_field() ?>
+<div class="row g-3">
+ <div class="col-md-8"><label class="form-label">Judul *</label><input name="title" class="form-control" value="<?= e($g('title')) ?>" required></div>
+ <div class="col-md-4"><label class="form-label">Kode voucher <small class="text-muted">(kosong = otomatis)</small></label><input name="code" class="form-control text-uppercase" value="<?= e($g('code')) ?>"></div>
+ <div class="col-12"><label class="form-label">Deskripsi</label><textarea name="description" class="form-control" rows="2"><?= e($g('description')) ?></textarea></div>
+ <div class="col-md-3"><label class="form-label">Jenis diskon</label><select name="discount_type" class="form-select"><option value="percent"<?= sel($g('discount_type'), 'percent') ?>>Persen</option><option value="fixed"<?= sel($g('discount_type'), 'fixed') ?>>Nominal</option></select></div>
+ <div class="col-md-3"><label class="form-label">Nilai *</label><input name="discount_value" type="number" step="0.01" min="0" class="form-control" value="<?= e($g('discount_value')) ?>" required></div>
+ <div class="col-md-3"><label class="form-label">Maks. diskon (Rp)</label><input name="max_discount" type="number" min="0" class="form-control" value="<?= e($g('max_discount')) ?>"></div>
+ <div class="col-md-3"><label class="form-label">Min. transaksi (Rp)</label><input name="min_purchase" type="number" min="0" class="form-control" value="<?= e($g('min_purchase', 0)) ?>"></div>
+ <div class="col-md-3"><label class="form-label">Kuota total</label><input name="quota" type="number" min="0" class="form-control" value="<?= e($g('quota')) ?>" placeholder="kosong = tak terbatas"></div>
+ <div class="col-md-3"><label class="form-label">Batas per user</label><input name="per_user_limit" type="number" min="1" class="form-control" value="<?= e($g('per_user_limit', 1)) ?>"></div>
+ <div class="col-md-3"><label class="form-label">Mulai *</label><input name="starts_at" type="datetime-local" class="form-control" value="<?= $row ? date('Y-m-d\TH:i', strtotime($row->starts_at)) : '' ?>" required></div>
+ <div class="col-md-3"><label class="form-label">Selesai *</label><input name="ends_at" type="datetime-local" class="form-control" value="<?= $row ? date('Y-m-d\TH:i', strtotime($row->ends_at)) : '' ?>" required></div>
+ <?php if ($area === 'admin'): ?><div class="col-md-3"><label class="form-label">Ditanggung oleh</label><select name="funded_by" class="form-select"><option value="platform"<?= sel($g('funded_by'), 'platform') ?>>Platform</option><option value="partner"<?= sel($g('funded_by'), 'partner') ?>>Travel</option></select></div><?php endif; ?>
+ <div class="col-md-3"><label class="form-label">Status</label><select name="status" class="form-select"><?php foreach (['draft', 'active', 'inactive'] as $s): ?><option<?= sel($g('status', 'active'), $s) ?>><?= $s ?></option><?php endforeach; ?></select></div>
+ <div class="col-12"><div class="form-check mb-2"><input type="checkbox" class="form-check-input" id="all" name="applies_to_all" value="1"<?= $g('applies_to_all') ? ' checked' : '' ?>><label for="all" class="form-check-label">Berlaku untuk semua paket<?= $area === 'admin' ? '' : ' milik travel ini' ?></label></div>
+  <label class="form-label">…atau pilih paket tertentu</label><select name="packages[]" class="form-select select2" multiple><?php foreach ($packages as $p): ?><option value="<?= $p->id ?>"<?= in_array((int)$p->id, $sel, true) ? ' selected' : '' ?>><?= e($p->name) ?></option><?php endforeach; ?></select></div>
+</div><button class="btn btn-primary mt-3">Simpan</button> <a href="<?= site_url($base) ?>" class="btn btn-light mt-3">Batal</a></form></div>

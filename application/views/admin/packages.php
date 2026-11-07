@@ -1,0 +1,3 @@
+<div class="card p-3"><table class="table table-hover dt"><thead><tr><th>Kode</th><th>Paket</th><th>Travel</th><th>Kategori</th><th>Harga mulai</th><th>Persetujuan</th><th>Status</th><th></th></tr></thead><tbody>
+<?php foreach ($rows as $r): ?><tr><td><?= e($r->code) ?></td><td><?= e($r->name) ?></td><td><?= e($r->partner_name) ?></td><td><?= e($r->category_name) ?></td><td><?= rupiah($r->base_price) ?></td><td><?= badge($r->approval_status) ?></td><td><?= badge($r->status) ?></td>
+<td><a class="btn btn-sm btn-outline-primary" href="<?= site_url('admin/packages/show/' . $r->id) ?>">Tinjau</a></td></tr><?php endforeach; ?></tbody></table></div>

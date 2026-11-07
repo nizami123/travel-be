@@ -1,0 +1,4 @@
+<div class="d-flex justify-content-end mb-3"><a href="<?= site_url("admin/content/form/$e") ?>" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Tambah</a></div>
+<div class="card p-3"><table class="table table-hover dt"><thead><tr><?php foreach ($d['list'] as $label): ?><th><?= e($label) ?></th><?php endforeach; ?><th></th></tr></thead><tbody>
+<?php foreach ($rows as $r): ?><tr><?php foreach ($d['list'] as $col => $label): ?><td><?= $col === 'status' ? badge($r->$col) : e(mb_strimwidth((string)$r->$col, 0, 70, '…')) ?></td><?php endforeach; ?>
+<td><a class="btn btn-sm btn-outline-primary" href="<?= site_url("admin/content/form/$e/" . $r->id) ?>">Ubah</a> <?= post_btn("admin/content/remove/$e/" . $r->id, 'Hapus', 'btn-outline-danger', [], 'Hapus data ini?') ?></td></tr><?php endforeach; ?></tbody></table></div>
